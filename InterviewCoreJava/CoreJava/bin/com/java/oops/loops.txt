@@ -1,0 +1,42 @@
+Loops
+1. Loops
+2. Debugging
+3. OOPS
+
+
+
+for(int  i = 1 ; i<=10 ; i++)
+{
+System.out.println("I is "+i);
+}
+int i = 1;
+for(; i<=10 ;)
+{
+if(i<5){
+i++;
+}
+else
+{
+i = i+ 2;
+}
+
+}
+int i = 1;  // Line 5
+// Line of Code
+while(i<=10)  // Line 10
+{
+if(i<5){
+i++;
+}
+else
+{
+i = i+ 2;
+}
+}
+
+int i = 1;
+do{
+System.out.println("This will Execute Once ");
+i++;
+}while(i>10);
+*************************************************************************************************

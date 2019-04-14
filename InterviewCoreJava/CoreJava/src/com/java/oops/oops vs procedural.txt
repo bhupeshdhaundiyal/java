@@ -1,0 +1,33 @@
+OOPS vs Procedural
+1. Object Oriented Programming
+Object - RealWorld Things
+
+eg. 
+
+class Student
+{
+rollno
+course
+duration
+grade
+marks
+
+// Common Characters among Students
+// Blue Print
+}
+
+2. Procedural Programming
+
+Top Down Approach
+
+f1()
+{
+}
+f2()
+{
+}
+f3(){
+f1();
+f2();
+}
+**************************************************************************************
