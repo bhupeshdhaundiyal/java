@@ -1,0 +1,430 @@
+Synchronization (Mutual Exclusion and vsibility)
+Immutable classes 
+wait notify and notifyall  (Producer consumer Problem).
+CountdownLatch 
+CyclicBarrier
+Executor (For Thread Pool)
+ReentrantLock
+Volatile Variable (Visibility : from Main memory )
+ThreadLocal Variable 
+Semaphore (work on the basis of Permit)  acquire and release two methods 
+Counting semaphore with one permit is known as binary semaphore because it has only two state permit available or permit unavailable.
+
+
+------------------------------------------------------------------------------------------
+Thread localvariable :
+when we are accessing same object from different threads then we use synchronization to prevent from race condition. Another way to achieve threads safety is by providng explicit cpy of the objcet to eachh threads.Since Object is no more shared there is no requirement of Synchronization which can improve scalability and performance of application.
+
+Don't misunderstood that ThreadLocal is alternative of Synchronization, it all depends upon design. If design allows each thread to have there own copy of object than ThreadLocal is there to use.
+
+
+
+Synchronixation : 
+Mutual exculsion (only single thread will usethe shared resuorce at a time ) :- (Atomicity)
+Visibility : Changes made by a thread visible to all 
+
+
+Synchronization : Visibility(changes amde by singe thread visible to all ) + Atomicity (simgle step)
+
+Volatile : only Visibility (Data will be read by the main memory not from the cache memory of the individual threads).
+
+Difference between sleep , yield and wait
+
+wait : for pausing thread for particular condition when we notify then it will execute : lock release 
+
+sleep : it will temporariy pause the thead fornthe specfed time  :  lock not release 
+
+yield()  pause the thread release the lock and give channe to another thread otally deend on the threadscheduler that hich thread will get the chance , may be same thread will get the chance.
+
+
+
+
+
+Multithreading, concurrency and thread basics
+Date type conversion and fundamentals
+Garbage Collection
+Java Collections Framework
+Array
+String
+GOF Design Patterns
+SOLID design principles
+Abstract class and interface
+Java basics e.g. equals() and hashcode
+Generics and Enum
+Java IO and NIO
+Common Networking protocols
+Data structure and algorithm in Java
+Regular expressions
+JVM internals
+Java Best Practices
+JDBC
+Date, Time, and Calendar
+XML Processing in Java
+JUnit
+Programming
+------------------------------------------------------------------------------------------------------------------------------
+47) What is a compile time constant in Java? What is the risk of using it?
+
+Ans : compile time constant variable :public  final static varibale _name : 
+Twhen we define final tatoch the these varivble are replacd by the actual value : and used in the whole program . so whenever we are upgarding the third pary jar and in the thord party jar vaoues fr these varibales are chnaged then our project still use that old vaue 
+so we need to compile the whole program tohave the upgraded value.
+
+IO is very important from Java interview point of view. You should have a good knowledge of old Java IO, NIO, and NIO2 alsong with some operating system and disk IO fundamentals. Here are some frequently asked questions form Java IO.
+
+66) In my Java program, I have three sockets? How many threads I will need to handle that?
+
+67) How do you create ByteBuffer in Java?
+
+68) How do you write and read from ByteBuffer in Java?
+
+69) Is Java BIG endian or LITTLE endian?
+
+70) What is the byte order of ByteBuffer?
+
+71) The difference between direct buffer and non-direct buffer in Java? (answer)
+
+72) What is the memory mapped buffer in Java? (answer)class 
+
+73) What is TCP NO DELAY socket option?
+
+74) What is the difference between TCP and UDP protocol? (answer)
+
+75) The difference between ByteBuffer and StringBuffer in Java? (answer)
+
+76) Memory leak ?
+
+factory pattern and design pattern in java ??
+------------------------------------------------------------------------------------------------------------
+Singleton in java:
+(Done)
+
+
+
+
+
+-------------------------------------------STRUTS 2 ----------------------------------------------------------
+
+
+Action Interface ()
+5 string vaibales and execute method 
+
+class Action Support implements Action,Serilizable andd others....having method like addFieldError for validation (server isde validation)
+
+FROM ACTON SETTER METHOD CALL AND THEN VALIDATE METHOD CALL 
+if validate method fails then it will give "input"  ---> in the struts.xml --->    <result name="input">/login.jsp</result>
+
+if validate method sucessfully execute then excute() method will come.
+
+XML BASED validation :- 
+
+>1) Make the xml as the class name then it will automatically bind that xml :
+like CustomerAction.java   --->  xml will be CustomerAction-validation.	xml
+2) make entry of input type in the struts.xml file ---> <result name="input">/login.jsp</result>  --> to move the page to the login.jsp if validatin fails.
+
+
+DYNAMIC METHOD 	INVOCATION :
+
+Wehen we have 4 button and we want to have the atcion one --> but we want to execute the logic by fifferent method then we use the dynamoc mmethodinvocation ;
+
+ <action name="*User" method="{2}" class="com.srivastava.basics.UserAction">
+            <result name="success">/success.jsp</result>
+        	</action>  
+
+
+
+
+this reprsens all the request for user will go in this action and 2 specify the method : 
+Inisde jsp file : 
+<s:submit action="addUser" value="Add" />
+<s:submit action="updateUser" value="Update" />
+<s:submit action="deleteUser" value="Delete" />
+
+adduser ---> add --->> reprsents {1}   (similarly for others)
+
+
+
+
+
+
+
+
+
+
+
+Struts :
+1) Hello Struts
+2) I18N   (write constant in the struts.xml file with value --> name of the oroerties file)
+3) ModelDriven interface --> to create a model driven action we impement -- > getModel() --> in the ge model we will retuen the users
+In the jsp file we directly have the values (i.e no need to write the setter and getters) of the parameters as we have the same name of the setter and getters as we have the field in the jsp file.
+
+
+When using the ModelDriven method we need to initialize the User object ourselves.The framework will automatically transfers the form data into the User object.
+
+ModelDriven Actions provide a model object to be pushed onto the ValueStack
+ * in addition to the Action itself, allowing a FormBean type approach like Struts.
+ 
+
+UserAction extends ActionSupport implements ModelDriven {
+
+    private User user = new User();    //need to nitialise the user object
+   
+
+  public Object getModel() {                   //we are returning the user --> and in jsp we can directly access them by using                                                  their name.
+        return user;
+    }
+
+}
+
+4)Validation of two types :
+i). Programatc based - like we write logov in the vlate method which comes from the action support and uses the methods like : addfieldError to show the error messages in the specified file.
+
+ii). XML based : we can make the xmk with the same name as of action like : Cutomer.java (Action file )  then validation xml will be Cutomer-validation.xml file  in the xml file we will may use the predefind validation logics . 
+
+Like to validate email we write :
+
+<vaidators>
+<field name="email">
+		<field-validator type="requiredstring">   //for mandatory
+		<message key="errors.required" />          // if not found then this messgage will display
+		</field-validator>
+		<field-validator type="email">             //email type validation
+		<message key="errors.invalid" />    // by using the i18n -- read property file -- and key will replace thevalue                                                     //from the properties file. 
+		</field-validator>
+	</field>
+</validators>
+
+
+5).Interceptors: (Pre an post processing : )
+Struts2 comes with default list of Interceptors already configured in the application in struts-default.xml file
+
+Framework creates an object of ActionInvocation that encapsulates the action and all the interceptors configured for that action. Each interceptors are called before the action gets called. Once the action is called and result is generated, each interceptors are again called in reverse order to perform post processing work. Interceptors can alter the workflow of action. It may prevent the execution of action.
+
+Interceptor iterface have three methods :
+
+init()               //execute once 
+destroy()            //execute once
+String intercept(ActionInvocation invocation)
+{
+
+// logic for the preprocessing 
+String result = invocation.invoke();   // to invole action 
+//logic for the post processing
+
+return result;   // for redirecting to result
+
+} 
+
+entry inside the struts.xml file :
+		<interceptors>
+    				<interceptor name="mylogging"                      //our interceptor name
+        						class="com.srivastava.basics.LoggingInterceptor">
+    		</interceptor>
+    		<interceptor-stack name="loggingStack">                         //we hae created the stack of the interceptors
+        		<interceptor-ref name="mylogging" />                    //included our intercpetor
+        		<interceptor-ref name="defaultStack" />                 //included default interceptor
+    		</interceptor-stack>
+			</interceptors>     
+	        
+	        <action name="welcome" class="com.srivastava.basics.MyAction">
+	            <interceptor-ref name="loggingStack"/>                           //now in our class we are using the stack 										     //which we have created. 
+	            <result name="success">/index.jsp</result>                 
+	        </action>
+
+6). MultipleStrutsxml file :  (Add the include file = "admin.xml" in the struts.xml file)
+<include file="admin.xml"></include>
+<include file="users.xml"></include>   
+
+
+----------------------------admin.xml file --------------------------------------------
+<package name="admin" namespace="/admin" extends="struts-default">
+<action name="adminAC" class="com.srivastava.admin.action.AdminAction">
+    <result name="success">/admin.jsp</result>
+</action>
+</package>
+----------------------------------------------------------------------------------------
+
+in the jsp file use action like in this way :
+<s:a href="admin/adminAC">Admin</s:a>
+----------------------------------------------------------------------------------------
+
+7). SessionAware
+Actions that want access to the user's HTTP session attributes should implement this interface
+1 methods 
+    public void setSession(Map<String,Object> session);
+
+For example:
+Adding an attribute to the session: 
+sessionMap.put("userName", "Tom");
+That’s equivalent to this call with the HttpSession:
+httpSession.setAttribute("userName", "Tom");
+
+Removing an attribute from the session:
+
+sessionMap.remove("userName");
+That’s equivalent to this call with the HttpSession:
+httpSession.removeAttribute("userName");
+
+So by implementing the SessionAware interface and manipulating session attributes via a Map object, 
+we can decouple the action class from the Servlet API, thus making unit testing the
+ action class easily.
+
+
+8).ServletRequestAware
+All Actions that want to have access to the servlet request object must implement this interface.<p>
+ * <p/>
+ * This interface is only relevant if the Action is used in a servlet environment. <p>
+ * <p/>
+ * Note that using this interface makes the Action tied to a servlet environment, so it should be
+ * avoided if possible since things like unit testing will become more difficult.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Remaining : 
+Struts life cycle :
+
+
+
+------------------------------------------------------------------------------------------
+
+Hibernate :
+
+First level cache :
+1. Hibernate First Level cache is enabled by default, there are no configurations needed for this.Hibernate first level cache is session specific, that’s why when we are getting the same data in same session there is no query fired whereas in other session query is fired to load the data.
+2. Hibernate first level cache can have old values, as you can see above that I have put my program to sleep for 10 seconds and in that time I updated the value (name from Pankaj to PankajK) in database but it didn’t get reflected in the same session. But in other session, we got the updated value.
+3. We can use session evict() method to remove a single object from the hibernate first level cache.
+4. We can use session clear() method to clear the cache i.e delete all the objects from the cache.
+5. We can use session contains() method to check if an object is present in the hibernate cache or not, if the object is found in cache, it returns true or else it returns false.
+Since hibernate cache all the objects into session first level cache, while running bulk queries or batch updates it’s necessary to clear the cache at certain intervals to avoid memory issues.
+
+
+Hibernate Second Level cache:
+->>providers include EHCache and Infinispan, but EHCache is more popular and we will use it for our example project.
+EHCache have 4 different strategies :--
+
+1> Read Only: This caching strategy should be used for persistent objects that will always read but never updated. It’s good for reading and caching application configuration and other static data that are never updated. This is the simplest strategy with best performance because there is no overload to check if the object is updated in database or not.
+
+2> Read Write: It’s good for persistent objects that can be updated by the hibernate application. However if the data is updated either through backend or other applications, then there is no way hibernate will know about it and data might be stale. So while using this strategy, make sure you are using Hibernate API for updating the data.
+
+3> Nonrestricted Read Write: If the application only occasionally needs to update data and strict transaction isolation is not required, a nonstrict-read-write cache might be appropriate.
+
+4> Transactional: The transactional cache strategy provides support for fully transactional cache providers such as JBoss TreeCache. Such a cache can only be used in a JTA environment and you must specify hibernate.transaction.manager_lookup_class.
+
+EHCache uses slf4j for logging, so I have also added slf4j-simple for logging purposes. 
+
+
+Qusetion:- What are different states of an entity bean?
+Answer:- An entity bean instance can exist is one of the three states:-
+
+Transient: When an object is never persisted or associated with any session, it’s in transient state. Transient instances may be made persistent by calling save(), persist() or saveOrUpdate(). Persistent instances may be made transient by calling delete().
+Persistent: When an object is associated with a unique session, it’s in persistent state. Any instance returned by a get() or load() method is persistent.
+Detached: When an object is previously persistent but not associated with any session, it’s in detached state. Detached instances may be made persistent by calling update(), saveOrUpdate(), lock() or replicate(). The state of a transient or detached instance may also be made persistent as a new persistent instance by calling merge().
+
+Question > What is Query Cache in Hibernate?
+
+Answer:
+3 types of cache :
+First level cache : by default on  (you can clear by using evict()  and clear()).
+Second level cache : need to on : EHCache : 
+Query Cache :  to cache the query which frequently execute wuth the same parameters.
+
+Below is the answer to implemet the query cache in projcet :
+
+Hibernate implements a cache region for queries resultset that integrates closely with the hibernate second-level cache.
+
+This is an optional feature and requires additional steps in code. This is only useful for queries that are run frequently with the same parameters. First of all we need to configure below property in hibernate configuration file.
+
+
+<property name="hibernate.cache.use_query_cache">true</property>
+And in code, we need to use setCacheable(true) method of Query, quick example looks like below.
+
+Copy
+Query query = session.createQuery("from Employee");
+query.setCacheable(true);
+query.setCacheRegion("ALL_EMP");
+
+
+
+
+
+Java Memory Model:
+
+Heap 2 : 
+Young gen  -> 3 parts -> 1.Eden and 2,3 S0 and S1 (survivor)
+
+Old gen -> 
+
+
+Mostly newly obbj created first in eden and when eden get full ittransfer to s0 and s1.
+depending upon s0 and s1 takes shifts and one empty.
+
+
+After many cycles of GC (garbage collector)  object moved to the old gen -> depends upon the threshold value which we set for the young gen.
+
+Young gen -> minor GC (short live objects)
+Old Gen -> major GC   (long lived objects )
+
+Permgen (Permanent Generation) ->  for the metadata ->  (like class and methods definition kept by the jvm)
+
+major fc - > full garbage collection clearsthe values prsent in the perm gen.
+
+Grabage collection is peform in 3 setps :
+Marking   - we mark the unused objects first
+Deltetion - delete the unused objects.
+Compacting n deletion  - along with deleting the unused objects it will compact by moving together the lived or used objects.
+
+5  strategy for GC:
+1. Serial GC :  suitable for small applications -> work on the basis of marke sweep and delete . Single thread is used for the GC.
+
+2. Parallel GC :   same as serial GC but it has multiple threads to perform the GC. Only single thread for the Old Gen.
+
+
+3. Parallel old GC : same as parallel GC excpet also perform multiple threads for the old gen.
+
+4. Concurrent mark sweep : It simultaneouly execute the GC process with the existng threads of the system and reduces the impact of the stop the world phenomemnon arises due to the GC process i.e whenver  GC takes place it impcat the ssystem by pausing all other threads process. So in CMSit will simultanowuly do this activity and reduces the pausing of the applications.
+
+5. G1agarbage colection :  able to use from java 7 -> it work on the concept of dividing the mempry in two parts .No cnceprts of the old and young gen . It will divide the memory  in 2 parts . And calculate the which part has the higher count for the unused objevvts and then peroform the GC in that part. Also provide  reduces the pausing of the applications by simultaneously executing the threads.
+
+
+
+
+
+
+  
+
+
+ 
+
+
+
+
+
+
+
+
+
+
